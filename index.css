@@ -1,0 +1,124 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+footer{
+    height:5vh;
+    background-color: black;
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+label{
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.page-height {
+    height: 88vh;
+    overflow-y: scroll;
+    width: 100%;
+}
+.blocks {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
+.block {
+    border: .4rem solid black;
+    border-radius: .5rem;
+    margin: 1rem;
+    font-size: 1.5rem;
+    padding: 1rem .5rem;
+    transition: all .07s ease;
+    width: 20rem;
+    min-height: 200px;
+    text-align: center;
+    color: white;
+    /*background: rgba(0,0,0,0.4);*/
+    text-shadow: 0 0 .5rem black;
+}
+.list-item {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin: 2px;
+    background-color: #ffffff;
+}
+.list-item:hover {
+    font-weight: bold;
+    /* transform: scale(1.1, 1);
+    transform-origin: left; */
+    cursor: pointer;    
+}
+.margin-left-20{
+    margin-left: 20px;
+}
+.display-inline{
+    display:inline;
+}
+
+
+
+label.list-item {
+    background-color: white;
+    display:block;
+    line-height:30px;
+    text-align:center;
+    cursor: pointer;
+}
+label.list-item:hover {
+    font-weight: bold;
+    /* transform: scale(1.1, 1);
+    transform-origin: left; */
+    cursor: pointer;    
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+label:has(input:checked) {
+    transform: scale(1.05, 1);
+    transform-origin: left;
+}
+
+input:checked + label:before {
+    content: "\2713 ";
+}
+
+
+/* new stuff */
+.check {
+    visibility: hidden;
+}
+
+input:checked + label .check {
+    visibility: visible;
+}
+
+/* input.checkbox:checked + label:before {
+    content: "";
+} */
