@@ -16,7 +16,7 @@ window.onload = function(){
         $("#chartContainer").CanvasJSChart(options);
     });
 
-    $("input:checkbox:checked").each(function(){
+    $("input:checkbox[name='tag-list']:checked").each(function(){
         onSelect(this.parentElement);
     });
 
@@ -96,32 +96,41 @@ window.onload = function(){
     }
 
     function getData(tag){
-        var limit = 2;    //increase number of dataPoints by increasing the limit
-        var y = 0;
+        var count = 10; //increase number of dataPoints by increasing the count
+        var interval = 86400000;
+
+        var date = new Date();
+        var from = date.setHours(0,0,0,0);
+        var to = date.setDate(date.getDate()+1);
         var data = {
             type: "line",
             name: tag,
             showInLegend: true,
             dataPoints: []
         };
-        var dataPoints = [];
-        var totalSeconds = Date.now().toString().slice(0, -3) - 86400;
 
-        for(var i = 0; i < limit; i++){
+        var dataPoints = [];
+
+        for(var i = 0; i < count; i++){
             //y += Math.round(Math.random() * 10 - 5);
             $.ajax({
-                url: "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + totalSeconds + "&todate=" + (totalSeconds + 3600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow",
+                url: "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + from.toString().slice(0, -3)
+                    + "&todate=" + to.toString().slice(0, -3) + "&order=desc&sort=activity&site=stackoverflow",
+                type: 'GET',
+                data: { tagged: tag},
                 success: function (response) {
                     console.log(response);
                     dataPoints.push({
-                        x: i + 1,
+                        x: new Date(from),
                         y: response.items.length
                     });
-                    totalSeconds += 3600;
                     console.log(dataPoints);
                 },
                 async: false
             })
+
+            to = from;
+            from -= interval;
         }
         data.dataPoints = dataPoints;
         options.data.push(data);
