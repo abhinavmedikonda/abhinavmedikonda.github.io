@@ -8,7 +8,9 @@
 </head>
 
 <body style="min-height:100%;">
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div id="panelBackground">
+  </div>
+  <div class="navbar navbar-inverse navbar-fixed-top header">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -61,8 +63,6 @@
       <div class="col-xs-9" style="margin-top:10px">
         <div class="row">
           <ul id="ulSelected" style="list-style:none">
-            <!-- <li class="list-item display-inline">azure<span class="margin-left-20 glyphicon glyphicon-remove"></span></li>
-            <li class="list-item display-inline">shell<span class="margin-left-20 glyphicon glyphicon-remove"></span></li> -->
           </ul>
         </div>
         <div class="row">
@@ -71,9 +71,9 @@
         <hr />
         <div class="row">
           <div class="blocks">
-            <div class="form-group block" style="min-width:200px">
-              <input type="text" class="form-control" style="text-align: center" />
-              <button class="btn-primary btn-lg">Get</button>
+            <div class="form-group block" style="display:flex; flex-direction: column; justify-content: center;">
+              <input type="text" class="form-control" style="text-align: center; height: 45px" />
+              <button class="btn-primary btn-lg" style="height: 45px">Get</button>
             </div>
             <div class="block">
               <h1 id="1hour"></h1>
@@ -88,10 +88,11 @@
         </div>
       </div>
     </div>
-    <div id="panelBackground" style="height:100vh; top:0; right:0; background-color:gray; position:fixed; z-index:-10"></div>
   </div>
   <footer>
-    <p>&copy; My Application</p>
+    <div class="container">
+      <p>&copy; My Application</p>
+    </div>
   </footer>
 </body>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">

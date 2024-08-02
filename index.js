@@ -1,32 +1,13 @@
-window.onload = function () {
+window.onload = function(){
+    createChart();
     document.getElementById("panelBackground").style.left = document.getElementById("ulTags").getBoundingClientRect().left + "px";
     document.getElementById("panelBackground").style.width = document.getElementById("ulTags").getBoundingClientRect().width + "px";
     window.addEventListener('resize', function () {
         document.getElementById("panelBackground").style.left = document.getElementById("ulTags").getBoundingClientRect().left + "px";
         document.getElementById("panelBackground").style.width = document.getElementById("ulTags").getBoundingClientRect().width + "px";
     });
-    $("ul#ulTags").on("click", "label", function () {
-        console.log($(this).text());
-        $("input").val($(this).text());
 
-        if ($("#ulSelected li").length < 5) {
-            if ($("#ulSelected li").length == 0) {
-                createChart();
-            }
-            if ($("#ulSelected li:contains(" + $(this).text() + ")").length == 0) {
-                var newLi = document.createElement('li');
-                newLi.className = "list-item display-inline";
-                newLi.innerHTML = $(this).text() + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
-                document.getElementById("ulSelected").appendChild(newLi);
-
-                getData($(this).text());
-            }
-        }
-
-        // buttonClick();
-    });
-
-    $("ul#ulSelected").on("click", "span.glyphicon-remove", function () {
+    $("ul#ulSelected").on("click", "span.glyphicon-remove", function(){
         options.data = options.data.filter(obj => obj.name != $(this).get(0).parentElement.innerText);
         $(this).get(0).parentElement.remove();
         if ($("#ulSelected li").length == 0) {
@@ -35,9 +16,52 @@ window.onload = function () {
         $("#chartContainer").CanvasJSChart(options);
     });
 
+    $("input:checkbox:checked").each(function(){
+        onSelect(this.parentElement);
+    });
+
+    $("ul#ulTags").on("click", "label", function(e){
+        if (e.target !== this){
+            return;
+        }
+        console.log($(this).children('input')[0].checked);
+        if($(this).children('input')[0].checked){
+            onUnselect(this);
+        }
+        else {
+            onSelect(this);
+        }
+    });
+
+    function onSelect(label){
+        console.log($(label).text());
+        $("input").val($(label).text());
+
+        if ($("#ulSelected li").length < 5) {
+            if ($("#ulSelected li").length == 0) {
+                createChart();
+            }
+            if ($("#ulSelected li:contains(" + $(label).text() + ")").length == 0) {
+                var newLi = document.createElement('li');
+                newLi.className = "list-item display-inline";
+                newLi.innerHTML = $(label).text() + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
+                document.getElementById("ulSelected").appendChild(newLi);
+
+                getData($(label).text());
+            }
+        }
+
+        // buttonClick();
+    }
+
+    function onUnselect(label){
+        options.data = options.data.filter(obj => obj.name != $(label).text());
+        $("#chartContainer").CanvasJSChart(options);
+    }
+
     $("button").click(function () { buttonClick(); });
 
-    function createChart() {
+    function createChart(){
         options = {
             animationEnabled: true,
             zoomEnabled: true,
@@ -70,7 +94,8 @@ window.onload = function () {
         };
         $("#chartContainer").CanvasJSChart(options);
     }
-    function getData(tag) {
+
+    function getData(tag){
         var limit = 2;    //increase number of dataPoints by increasing the limit
         var y = 0;
         var data = {
@@ -82,7 +107,7 @@ window.onload = function () {
         var dataPoints = [];
         var totalSeconds = Date.now().toString().slice(0, -3) - 86400;
 
-        for (var i = 0; i < limit; i++) {
+        for(var i = 0; i < limit; i++){
             //y += Math.round(Math.random() * 10 - 5);
             $.ajax({
                 url: "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + totalSeconds + "&todate=" + (totalSeconds + 3600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow",
@@ -102,7 +127,7 @@ window.onload = function () {
         options.data.push(data);
         $("#chartContainer").CanvasJSChart(options);
     }
-    function toogleDataSeries(e) {
+    function toogleDataSeries(e){
         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
             e.dataSeries.visible = false;
         } else {
@@ -110,7 +135,7 @@ window.onload = function () {
         }
         e.chart.render();
     }
-    function buttonClick() {
+    function buttonClick(){
         console.log($("input").val());
 
         var iteration = 1;
