@@ -67,7 +67,7 @@ window.onload = function(){
             zoomEnabled: true,
             theme: "light2",
             title: {
-                text: "every hour past 24 hours"
+                text: "stackOverflow tags per day"
             },
             axisX: {
                 title: "hours",
@@ -96,8 +96,8 @@ window.onload = function(){
     }
 
     function getData(tag){
-        var count = 10; //increase number of dataPoints by increasing the count
-        var interval = 86400000;
+        var count = 3; //increase number of dataPoints by increasing the count
+        var interval = 86400000; //1 day in milli seconds
 
         var date = new Date();
         var from = date.setHours(0,0,0,0);

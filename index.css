@@ -38,9 +38,8 @@ div#panelBackground {
 }
 .blocks {
     display: flex;
-    flex: 1;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 .block {
     border: .4rem solid black;
@@ -56,12 +55,10 @@ div#panelBackground {
     /*background: rgba(0,0,0,0.4);*/
     text-shadow: 0 0 .5rem black;
 }
-.list-item {
-    position: relative;
-    display: block;
+li.list-item {
     padding: 10px 15px;
     margin: 2px;
-    background-color: #ffffff;
+    border: 1px solid #dddddd;
 }
 .margin-left-20{
     margin-left: 20px;
@@ -73,6 +70,8 @@ div#panelBackground {
 
 
 label.list-item {
+    padding: 10px 15px;
+    margin: 2px;
     font-weight: normal;
     background-color: white;
     display:block;
