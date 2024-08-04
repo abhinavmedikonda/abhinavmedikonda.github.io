@@ -60,6 +60,12 @@ li.list-item {
     margin: 2px;
     border: 1px solid #dddddd;
 }
+li.list-item:hover {
+    cursor: pointer;
+    span.glyphicon{
+        color:crimson;
+    }
+}
 .margin-left-20{
     margin-left: 20px;
 }

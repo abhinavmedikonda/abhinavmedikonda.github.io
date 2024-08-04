@@ -7,17 +7,12 @@ window.onload = function(){
         document.getElementById("panelBackground").style.width = document.getElementById("ulTags").getBoundingClientRect().width + "px";
     });
 
-    $("ul#ulSelected").on("click", "span.glyphicon-remove", function(){
-        options.data = options.data.filter(obj => obj.name != $(this).get(0).parentElement.innerText);
-        $(this).get(0).parentElement.remove();
-        if ($("#ulSelected li").length == 0) {
-            options = {};
-        }
-        $("#chartContainer").CanvasJSChart(options);
+    $("ul#ulSelected").on("click", "li", function(){
+        onUnselect(this.innerText);
     });
 
     $("input:checkbox[name='tag-list']:checked").each(function(){
-        onSelect(this.parentElement);
+        onSelect(this.parentElement.innerText);
     });
 
     $("ul#ulTags").on("click", "label", function(e){
@@ -26,36 +21,39 @@ window.onload = function(){
         }
         console.log($(this).children('input')[0].checked);
         if($(this).children('input')[0].checked){
-            onUnselect(this);
+            onUnselect(this.innerText);
         }
         else {
-            onSelect(this);
+            onSelect(this.innerText);
         }
     });
 
-    function onSelect(label){
-        console.log($(label).text());
-        $("input").val($(label).text());
+    function onSelect(labelText){
+        console.log(labelText);
+        $("input").val(labelText);
 
         if ($("#ulSelected li").length < 5) {
             if ($("#ulSelected li").length == 0) {
                 createChart();
             }
-            if ($("#ulSelected li:contains(" + $(label).text() + ")").length == 0) {
+            if ($("#ulSelected li:contains(" + labelText + ")").length == 0) {
                 var newLi = document.createElement('li');
                 newLi.className = "list-item display-inline";
-                newLi.innerHTML = $(label).text() + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
+                newLi.innerHTML = labelText + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
                 document.getElementById("ulSelected").appendChild(newLi);
 
-                getData($(label).text());
+                getData(labelText);
             }
         }
 
         // buttonClick();
     }
 
-    function onUnselect(label){
-        options.data = options.data.filter(obj => obj.name != $(label).text());
+    function onUnselect(labelText){
+        $("#ulSelected").children().filter(function() {
+            return $(this).text() === labelText;
+        }).remove();
+        options.data = options.data.filter(obj => obj.name != labelText);
         $("#chartContainer").CanvasJSChart(options);
     }
 
