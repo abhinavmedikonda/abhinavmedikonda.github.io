@@ -7,7 +7,7 @@ window.onload = function(){
         document.getElementById("panelBackground").style.width = document.getElementById("ulTags").getBoundingClientRect().width + "px";
     });
 
-    $("ul#ulSelected").on("click", "li", function(){
+    $("#ulSelected").on("click", "li", function(){
         onUnselect(this.innerText);
     });
 
@@ -15,7 +15,7 @@ window.onload = function(){
         onSelect(this.parentElement.innerText);
     });
 
-    $("ul#ulTags").on("click", "label", function(e){
+    $("#ulTags").on("click", "label", function(e){
         if (e.target !== this){
             return;
         }
@@ -53,6 +53,11 @@ window.onload = function(){
         $("#ulSelected").children().filter(function() {
             return $(this).text() === labelText;
         }).remove();
+
+        var test = $("#ulTags").children().filter(function(){
+            return $(this).text() === labelText;
+        }).children()[0].checked = false;
+
         options.data = options.data.filter(obj => obj.name != labelText);
         $("#chartContainer").CanvasJSChart(options);
     }
@@ -65,7 +70,7 @@ window.onload = function(){
             zoomEnabled: true,
             theme: "light2",
             title: {
-                text: "stackOverflow tags per day"
+                text: "StackOverflow tags per day"
             },
             axisX: {
                 title: "hours",
