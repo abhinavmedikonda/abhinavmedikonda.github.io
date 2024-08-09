@@ -10,7 +10,6 @@
         display: flex;
         align-items: center;
         font-size: 2rem;
-        padding: 1vh 2vw;
         color: #999;
         user-select: none;
     }
@@ -19,6 +18,14 @@
         background-color: white;
         color: black;
     }
+}
+
+.span25{
+    width: 25%;
+}
+
+.span75{
+    width: 75%;
 }
 
 .header #ul-navbar label:hover {
@@ -139,4 +146,18 @@ div#panelBackground {
 #ul-tags>label>input[type=checkbox],
 #ul-navbar>label>input[type=radio] {
     display: none;
+}
+
+li.list-item {
+    padding: 10px 15px;
+    margin: 2px;
+    border: 1px solid #dddddd;
+}
+
+li.list-item:hover {
+    cursor: pointer;
+
+    span.glyphicon {
+        color: crimson;
+    }
 }
