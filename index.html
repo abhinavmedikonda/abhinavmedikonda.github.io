@@ -13,7 +13,7 @@
   <div class="header flex-x">
     <div class="container flex-x">
       <ul id="ul-navbar" class="flex-x no-margin">
-        <label class="no-margin padding"><input type="radio" name="chart-type">Column</label>
+        <label class="no-margin padding"><input type="radio" name="chart-type" checked>Column</label>
         <label class="no-margin padding"><input type="radio" name="chart-type">Line</label>
         <label class="no-margin padding"><input type="radio" name="chart-type">Bar</label>
         <label class="no-margin padding"><input type="radio" name="chart-type">Scatter</label>
@@ -21,13 +21,13 @@
     </div>
   </div>
   <div class="page-height">
+    <br />
     <div class="flex-x">
       <div class="span25">
         <div>
-          <br />
-          <ul id="ul-tags" style="font-size:20px; list-style:none; padding:0px 10px 0px 10px; margin-bottom:0">
-            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">java</label>
-            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">c#</label>
+          <ul id="ul-tags">
+            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off" checked>java</label>
+            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off" checked>c#</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">android</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">ios</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">amazon-web-services</label>
@@ -54,7 +54,7 @@
       </div>
       <div class="span75 padding">
         <div>
-          <ul id="ulSelected" style="list-style:none">
+          <ul id="ul-selected" class="flex-x">
             <!-- <li class="list-item display-inline">azure<span class="margin-left-20 glyphicon glyphicon-remove"></span></li>
             <li class="list-item display-inline">shell<span class="margin-left-20 glyphicon glyphicon-remove"></span></li> -->
           </ul>

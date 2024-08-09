@@ -8,7 +8,7 @@ window.onload = function(){
         document.getElementById("panelBackground").style.width = document.getElementById("ul-tags").getBoundingClientRect().width + "px";
     });
 
-    $("#ulSelected").on("click", "li", function(){
+    $("#ul-selected").on("click", "li", function(){
         unselectTag(this.innerText);
     });
 
@@ -41,12 +41,12 @@ window.onload = function(){
         $("input").val(tag);
         console.log(chart)
 
-        if ($("#ulSelected li").length < 5) {
-            if ($("#ulSelected li:contains(" + tag + ")").length == 0) {
+        if ($("#ul-selected li").length < 5) {
+            if ($("#ul-selected li:contains(" + tag + ")").length == 0) {
                 let newLi = document.createElement('li');
                 newLi.className = "list-item display-inline";
                 newLi.innerHTML = tag + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
-                document.getElementById("ulSelected").appendChild(newLi);
+                document.getElementById("ul-selected").appendChild(newLi);
 
                 getData(tag);
             }
@@ -56,7 +56,7 @@ window.onload = function(){
     }
 
     function unselectTag(tag){
-        $("#ulSelected").children().filter(function() {
+        $("#ul-selected").children().filter(function() {
             return $(this).text() === tag;
         }).remove();
 
@@ -109,62 +109,13 @@ window.onload = function(){
                 dockInsidePlotArea: false,
                 itemclick: toogleDataSeries
             },
-            data: [{
-                type: "line",
-                showInLegend: true,
-                name: "Projected Sales",
-                markerType: "circle",
-                xValueFormatString: "DD MMM, YYYY",
-                //color: "#F08080",
-                yValueFormatString: "#,##0K",
-                dataPoints: [
-                    { x: new Date(2024, 8, 1), y: 63 },
-                    { x: new Date(2024, 8, 2), y: 69 },
-                    { x: new Date(2024, 8, 3), y: 65 },
-                    { x: new Date(2024, 8, 4), y: 70 },
-                    { x: new Date(2024, 8, 5), y: 71 },
-                    { x: new Date(2024, 8, 6), y: 65 },
-                    { x: new Date(2024, 8, 7), y: 73 },
-                    { x: new Date(2024, 8, 8), y: 96 },
-                    { x: new Date(2024, 8, 9), y: 84 },
-                    { x: new Date(2024, 8, 10), y: 85 },
-                    { x: new Date(2024, 8, 11), y: 86 },
-                    { x: new Date(2024, 8, 12), y: 94 },
-                    { x: new Date(2024, 8, 13), y: 97 },
-                    { x: new Date(2024, 8, 14), y: 86 },
-                    { x: new Date(2024, 8, 15), y: 89 }
-                ]
-            },
-            {
-                type: "line",
-                showInLegend: true,
-                name: "Actual Sales",
-                //lineDashType: "dash",
-                //yValueFormatString: "#,##0K",
-                dataPoints: [
-                    { x: new Date(2024, 8, 1), y: 60 },
-                    { x: new Date(2024, 8, 2), y: 57 },
-                    { x: new Date(2024, 8, 3), y: 51 },
-                    { x: new Date(2024, 8, 4), y: 56 },
-                    { x: new Date(2024, 8, 5), y: 54 },
-                    { x: new Date(2024, 8, 6), y: 55 },
-                    { x: new Date(2024, 8, 7), y: 54 },
-                    { x: new Date(2024, 8, 8), y: 69 },
-                    { x: new Date(2024, 8, 9), y: 65 },
-                    { x: new Date(2024, 8, 10), y: 66 },
-                    { x: new Date(2024, 8, 11), y: 63 },
-                    { x: new Date(2024, 8, 12), y: 67 },
-                    { x: new Date(2024, 8, 13), y: 66 },
-                    { x: new Date(2024, 8, 14), y: 56 },
-                    { x: new Date(2024, 8, 15), y: 64 }
-                ]
-            }]
+            data: []
         };
         refresh(options);
     }
 
     function getData(tag){
-        let count = 3; //increase number of dataPoints by increasing the count
+        let count = 10; //increase number of dataPoints by increasing the count
         let interval = 86400000; //1 day in milli seconds
 
         let date = new Date();
