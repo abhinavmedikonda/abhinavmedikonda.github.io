@@ -1,43 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
     <script>
         window.onload = function () {
             var options;
-            var chart = new CanvasJS.Chart("chartContainer", options);
-            $("button").click(function () {
-                console.log(options);
-                options.data.push(
-                    {
-                        type: "line",
-                        showInLegend: true,
-                        name: "test",
-                        //lineDashType: "dash",
-                        //color: "blue",
-                        //yValueFormatString: "#,##0K",
-                        dataPoints: [
-                            { x: new Date(2023, 10, 1), y: 23 },
-                            { x: new Date(2023, 10, 2), y: 45 },
-                            { x: new Date(2023, 10, 3), y: 34 },
-                            { x: new Date(2023, 10, 4), y: 56 },
-                            { x: new Date(2023, 10, 5), y: 23 },
-                            { x: new Date(2023, 10, 6), y: 66 },
-                            { x: new Date(2023, 10, 7), y: 43 },
-                            { x: new Date(2023, 10, 8), y: 98 },
-                            { x: new Date(2023, 10, 9), y: 34 },
-                            { x: new Date(2023, 10, 10), y: 56 },
-                            { x: new Date(2023, 10, 11), y: 67 },
-                            { x: new Date(2023, 10, 12), y: 45 },
-                            { x: new Date(2023, 10, 13), y: 34 },
-                            { x: new Date(2023, 10, 14), y: 78 },
-                            { x: new Date(2023, 10, 15), y: 23 }
-                        ]
-                    });
-                console.log(options);
-                chart.render();
-            })
 
             options = {
                 animationEnabled: true,
@@ -116,7 +83,8 @@
                     ]
                 }]
             };
-            $("#chartContainer").CanvasJSChart(options);
+            var chart = new CanvasJS.Chart("chartContainer", options);
+            chart.render();
 
             function toogleDataSeries(e) {
                 if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
