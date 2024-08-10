@@ -12,7 +12,7 @@
   </div>
   <div class="header flex-x">
     <div class="container flex-x">
-      <ul id="ul-navbar" class="flex-x no-margin">
+      <ul id="ul-navbar" class="flex-x justify-center no-margin">
         <label class="no-margin padding"><input type="radio" name="chart-type" checked>Column</label>
         <label class="no-margin padding"><input type="radio" name="chart-type">Line</label>
         <label class="no-margin padding"><input type="radio" name="chart-type">Bar</label>
@@ -26,11 +26,12 @@
       <div class="span25">
         <div>
           <ul id="ul-tags">
-            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off" checked>java</label>
-            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off" checked>c#</label>
+            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">java</label>
+            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">c#</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">android</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">ios</label>
-            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">amazon-web-services</label>
+            <label class="list-item"><input type="checkbox" name="tag-list"
+                autocomplete="off">amazon-web-services</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">azure</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">terraform</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">python</label>
@@ -65,9 +66,9 @@
         <hr />
         <div>
           <div class="blocks">
-            <div class="form-group block" style="display:flex; flex-direction: column; justify-content: center;">
-              <input type="text" class="form-control" style="text-align: center; height: 45px" />
-              <button class="btn-primary btn-lg" style="height: 45px">Get</button>
+            <div class="block flex-y justify-center">
+              <input id="input-tag" type="text" class="radius padding" />
+              <button id="button-tag" class="radius padding">Get</button>
             </div>
             <div class="block">
               <h1 id="1hour"></h1>
