@@ -91,12 +91,20 @@ footer {
     }
 }
 
-.span25 {
+#tags-panel {
+    background-color: gray;
+}
+
+.x25 {
     width: 25%;
 }
 
-.span75 {
+.x75 {
     width: 75%;
+}
+
+.y100 {
+    height: 100%;
 }
 
 .radius {
@@ -128,12 +136,12 @@ footer {
     justify-content: center;
 }
 
-div#panelBackground {
+/* div#panelBackground {
     height: 100vh;
     background-color: gray;
     position: fixed;
     z-index: -10;
-}
+} */
 
 .blocks {
     display: flex;
