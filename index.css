@@ -86,7 +86,6 @@ footer {
 
         p {
             color: #999;
-            margin: 0;
         }
     }
 }
@@ -117,10 +116,6 @@ footer {
 
 .padding {
     padding: var(--unit);
-}
-
-.no-margin {
-    margin: 0;
 }
 
 .flex-x {
