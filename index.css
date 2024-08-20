@@ -34,7 +34,7 @@ html {
     }
 }
 
-.header {
+header {
     height: 7vh;
     background-color: #222;
     position: fixed;
@@ -70,7 +70,7 @@ body {
     overflow-y: scroll;
 }
 
-.footer {
+footer {
     height: 5vh;
     background-color: #222;
     position: fixed;
@@ -100,26 +100,26 @@ body {
 #layout-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    margin-bottom: 5vh;
 }
 
 #tags-panel {
     grid-column: span 3;
-    background-color: gray;
+    background-color: #444;
 }
 
 #chart {
-    grid-column: span 7;
+    grid-column: span 8;
 }
 
 #blocks {
-    grid-column: span 2;
+    grid-column: span 1;
 }
 
 @media (max-width: 1199px) {
     #tags-panel {
         grid-column: span 3;
         grid-row: span 2;
-        background-color: gray;
     }
 
     #chart {
