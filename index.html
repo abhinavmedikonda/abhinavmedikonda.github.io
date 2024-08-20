@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="min-height:100%;">
+<html>
 
 <head>
   <meta charset="utf-8" />
@@ -20,18 +20,18 @@
     </div>
   </div>
   <div>
-    <div class="flex-x">
-      <div id="tags-panel" class="x25">
+    <div id="layout-grid" class="flex-x">
+      <section id="tags-panel">
         <div>
           <ul id="ul-tags" class="padding">
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off" checked>java</label>
-            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">c#</label>
+            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off" checked>c#</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">android</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">ios</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">amazon-web-services</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">azure</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">terraform</label>
-            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off" checked>python</label>
+            <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">python</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">javascript</label>
             <label class="list-item"><input type="checkbox" name="tag-list" autocomplete="off">typescript</label>
           </ul>
@@ -49,48 +49,46 @@
             <li>windows</li>
           </ul>
         </div> -->
-      </div>
-      <div class="x75 padding">
+      </section>
+      <section id="chart" class="padding">
         <div>
           <ul id="ul-selected" class="flex-x">
             <!-- <li class="list-item display-inline">azure<span class="margin-left-20 glyphicon glyphicon-remove"></span></li>
             <li class="list-item display-inline">shell<span class="margin-left-20 glyphicon glyphicon-remove"></span></li> -->
           </ul>
         </div>
-        <div>
-          <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-        </div>
+        <div id="chartContainer"></div>
         <hr />
-        <div>
-          <div class="blocks">
-            <div class="block flex-y justify-center">
-              <input id="input-tag" type="text" class="radius padding" />
-              <button id="button-tag" class="radius padding">Get</button>
-            </div>
-            <div class="block">
-              <h1 id="1hour"></h1>
-            </div>
-            <div class="block">
-              <h1 id="6hour"></h1>
-            </div>
-            <div class="block">
-              <h1 id="24hour"></h1>
-            </div>
+      </section>
+      <section id="blocks">
+        <div class="blocks">
+          <div class="block flex-y justify-center">
+            <input id="input-tag" type="text" class="radius padding" />
+            <button id="button-tag" class="radius padding">Get</button>
+          </div>
+          <div class="block">
+            <h1 id="1hour"></h1>
+          </div>
+          <div class="block">
+            <h1 id="6hour"></h1>
+          </div>
+          <div class="block">
+            <h1 id="24hour"></h1>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   </div>
-  <footer>
+  <div class="footer">
     <div class="container">
       <p>&copy; My Application</p>
     </div>
-  </footer>
+  </div>
 </body>
 <link rel="stylesheet" href="./reset.css">
 <link rel="stylesheet" href="./index.css">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
-<script type="text/javascript" src="https://kit.fontawesome.com/a076d05399.js"></script>
+<!-- <script type="text/javascript" src="https://kit.fontawesome.com/a076d05399.js"></script> -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 <script type="text/javascript" src="./index.js"></script>

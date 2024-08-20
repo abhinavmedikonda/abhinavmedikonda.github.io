@@ -1,9 +1,9 @@
 :root {
-    --test: vw;
+    --unit: 1vw;
 }
 
 html {
-    --test: vw;
+    --unit: 1vw;
 }
 
 .container {
@@ -41,6 +41,7 @@ html {
     top: 0;
     left: 0;
     right: 0;
+    z-index: 10;
 
     #ul-navbar {
         width: 100%;
@@ -64,19 +65,19 @@ html {
 
 body {
     font-family: Helvetica;
-    margin: 7vh auto 0 auto;
-
+    margin: 7vh auto 5vh auto;
     height: 88vh;
     overflow-y: scroll;
 }
 
-footer {
+.footer {
     height: 5vh;
     background-color: #222;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 10;
 
     div {
         height: 100%;
@@ -90,8 +91,74 @@ footer {
     }
 }
 
+#chartContainer {
+    min-height: 500px;
+    height: 90%;
+    width: 100%;
+}
+
+#layout-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
 #tags-panel {
+    grid-column: span 3;
     background-color: gray;
+}
+
+#chart {
+    grid-column: span 7;
+}
+
+#blocks {
+    grid-column: span 2;
+}
+
+@media (max-width: 1199px) {
+    #tags-panel {
+        grid-column: span 3;
+        grid-row: span 2;
+        background-color: gray;
+    }
+
+    #chart {
+        grid-column: span 9;
+    }
+
+    #blocks {
+        grid-column: span 9;
+    }
+}
+
+@media (max-width: 991px) {
+    #tags-panel {
+        grid-column: span 6;
+        grid-row: 2 / 3;
+    }
+
+    #chart {
+        grid-column: span 12;
+    }
+
+    #blocks {
+        grid-column: span 6;
+    }
+}
+
+@media (max-width: 767px) {
+    #tags-panel {
+        grid-column: span 12;
+        grid-row: 2 / 3;
+    }
+
+    #chart {
+        grid-column: span 12;
+    }
+
+    #blocks {
+        grid-column: span 12;
+    }
 }
 
 .x25 {
@@ -142,17 +209,18 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .block {
-    border: .4rem solid black;
+    border: .4rem solid #444;
     border-radius: .5rem;
     margin: 1rem;
     font-size: 1.5rem;
     padding: 1rem .5rem;
     transition: all .07s ease;
-    width: 20rem;
-    min-height: 200px;
+    width: 100px;
+    height: 100px;
     text-align: center;
     color: white;
     /*background: rgba(0,0,0,0.4);*/
@@ -198,10 +266,15 @@ footer {
     display: none;
 }
 
-#ul-selected>li.list-item {
-    padding: 10px 15px;
-    margin: 2px;
-    border: 1px solid #dddddd;
+#ul-selected{
+    padding: 0 5%;
+    flex-wrap: wrap;
+
+    >li.list-item {
+        padding: 10px 15px;
+        margin: 2px;
+        border: 1px solid #dddddd;
+    }
 }
 
 #ul-selected>li.list-item:hover {
