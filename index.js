@@ -96,7 +96,6 @@ window.onload = function(){
                 document.getElementById("ul-selected").appendChild(newLi);
 
                 await getData(tag);
-                console.log('after geData');
             }
         }
 
@@ -193,8 +192,6 @@ window.onload = function(){
                         x: new Date(from),
                         y: response.items.length
                     });
-
-                    console.log("ajax success")
                 },
                 async: true //if await is added for this operation, "async: true" still going to be synchronous
             })
