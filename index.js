@@ -23,23 +23,70 @@ window.onload = function(){
         selectTag(this.parentElement.innerText);
     });
 
-    $("#ul-tags").on("change", "input:checkbox[name='tag-list']", function(e){
-        if (e.target !== this){
+    $("#ul-tags").on("click", "label.list-item", async function(e){
+        // await new Promise((resolve, reject) => {test(); resolve();})
+        // await test();
+        // console.log('click');
+        // return;
+
+        if (e.target !== this) {
+            e.preventDefault();
             return;
         }
-        if(this.checked){
-            selectTag(this.parentElement.innerText);
-            console.log("select");
+
+        if (this.style.cursor==='wait') {
+            return;
+        }
+
+        let checkbox = $(this).children('input:checkbox[name="tag-list"]')[0];
+        if(checkbox.checked){
+            await new Promise(resolve => {unselectTag(this.innerText); resolve();});
+            checkbox.checked = false;
         }
         else {
-            console.log("unselect");
-            unselectTag(this.parentElement.innerText);
+            $("#ul-tags > *").each(function(index) {
+                $(this).css("cursor", "wait");
+            })
+
+            // then catch approach
+            // selectTag(this.innerText)
+            // .then(response => {checkbox.checked = true;})
+            // .catch(error => {alert('error')})
+            // .finally(any => {
+            //     $("#ul-tags > *").each(function(index) {
+            //         $(this).css("cursor", "pointer");
+            //     })
+            // });
+
+            // async await approach
+            try {
+                await selectTag(this.innerText)
+                checkbox.checked = true;
+                $("#ul-tags > *").each(function(index) {
+                    $(this).css("cursor", "pointer");
+                })
+
+            } catch (error) {
+                alert('error');
+            }
         }
     });
 
-    function selectTag(tag){
+    async function test(){
+        await new Promise( (resolve, reject) => {setTimeout(function(){resolve(); console.log('test');}, 5000)});
+        await new Promise(x => setTimeout(x, 1000));
+        for (let index = 0; index < 50000; index++) {console.log('5000')}
+    }
+
+
+    // $("#ul-tags").on("change", "input:checkbox[name='tag-list']", async function(e){
+        // await new Promise(r => setTimeout(r, 5000));
+    // });
+
+    async function selectTag(tag){
+        // await new Promise(x => setTimeout(x, 1000));
+
         $("input").val(tag);
-        console.log(chart)
 
         if ($("#ul-selected li").length < 5) {
             if ($("#ul-selected li:contains(" + tag + ")").length == 0) {
@@ -48,7 +95,8 @@ window.onload = function(){
                 newLi.innerHTML = tag + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
                 document.getElementById("ul-selected").appendChild(newLi);
 
-                getData(tag);
+                await getData(tag);
+                console.log('after geData');
             }
         }
 
@@ -114,7 +162,7 @@ window.onload = function(){
         refresh(options);
     }
 
-    function getData(tag){
+    async function getData(tag){
         let count = 5; //increase number of dataPoints by increasing the count
         let interval = 86400000; //1 day in milli seconds
 
@@ -134,7 +182,8 @@ window.onload = function(){
 
         for(let i = 0; i < count; i++){
             //y += Math.round(Math.random() * 10 - 5);
-            $.ajax({
+            
+            await $.ajax({
                 url: "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + from.toString().slice(0, -3)
                     + "&todate=" + to.toString().slice(0, -3) + "&order=desc&sort=activity&site=stackoverflow",
                 type: 'GET',
@@ -144,8 +193,10 @@ window.onload = function(){
                         x: new Date(from),
                         y: response.items.length
                     });
+
+                    console.log("ajax success")
                 },
-                async: false
+                async: true //if await is added for this operation, "async: true" still going to be synchronous
             })
 
             to = from;
