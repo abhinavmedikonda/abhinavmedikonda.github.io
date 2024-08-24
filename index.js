@@ -48,10 +48,10 @@ window.onload = function(){
                 $(this).css("cursor", "wait");
             })
 
-            // then catch approach
+            // // then catch approach
             // selectTag(this.innerText)
             // .then(response => {checkbox.checked = true;})
-            // .catch(error => {alert('error')})
+            // .catch(error => {alert(error.responseJSON.error_message)})
             // .finally(any => {
             //     $("#ul-tags > *").each(function(index) {
             //         $(this).css("cursor", "pointer");
@@ -65,9 +65,12 @@ window.onload = function(){
                 $("#ul-tags > *").each(function(index) {
                     $(this).css("cursor", "pointer");
                 })
-
             } catch (error) {
-                alert('error');
+                alert(error.responseJSON.error_message);
+            } finally {
+                $("#ul-tags > *").each(function(index) {
+                    $(this).css("cursor", "pointer");
+                })
             }
         }
     });
@@ -90,12 +93,12 @@ window.onload = function(){
 
         if ($("#ul-selected li").length < 5) {
             if ($("#ul-selected li:contains(" + tag + ")").length == 0) {
+                await getData(tag);
+
                 let newLi = document.createElement('li');
                 newLi.className = "list-item display-inline";
                 newLi.innerHTML = tag + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
                 document.getElementById("ul-selected").appendChild(newLi);
-
-                await getData(tag);
             }
         }
 
@@ -193,6 +196,9 @@ window.onload = function(){
                         y: response.items.length
                     });
                 },
+                // error: function(error){
+                //     console.log(error.responseJSON.error_message);
+                // },
                 async: true //if await is added for this operation, "async: true" still going to be synchronous
             })
 
