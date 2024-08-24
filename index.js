@@ -19,14 +19,29 @@ window.onload = function(){
         refresh(options);
     });
 
-    $("input:checkbox[name='tag-list']:checked").each(function(){
-        selectTag(this.parentElement.innerText);
-    });
+    checked()
+    async function checked(){
+        var checks = $("input:checkbox[name='tag-list']:checked");
+        var errors = []
+
+        for (var i = 0; i < checks.length; i++) {
+            try {
+                await selectTag(checks[i].parentElement.innerText);
+            } catch (error) {
+                checks[i].checked = false;
+                errors.push(error.responseJSON.error_message);
+            }
+        }
+
+        if(errors){
+            alert(errors[0]);
+        }
+    }
 
     $("#ul-tags").on("click", "label.list-item", async function(e){
         // await new Promise((resolve, reject) => {test(); resolve();})
         // await test();
-        // console.log('click');
+        console.log('click');
         // return;
 
         if (e.target !== this) {
