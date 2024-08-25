@@ -1,4 +1,4 @@
-window.onload = function(){
+window.onload = function () {
     var chart;
     createChart();
     // document.getElementById("panelBackground").style.left = document.getElementById("ul-tags").getBoundingClientRect().left + "px";
@@ -8,11 +8,11 @@ window.onload = function(){
     //     document.getElementById("panelBackground").style.width = document.getElementById("ul-tags").getBoundingClientRect().width + "px";
     // });
 
-    $("#ul-selected").on("click", "li", function(){
+    $("#ul-selected").on("click", "li", function () {
         unselectTag(this.innerText);
     });
 
-    $("#ul-navbar").on("change", "input[type='radio'][name='chart-type']", function(){
+    $("#ul-navbar").on("change", "input[type='radio'][name='chart-type']", function () {
         options.data.forEach(x => {
             x.type = this.parentElement.innerText.toLowerCase();
         });
@@ -20,7 +20,7 @@ window.onload = function(){
     });
 
     checked()
-    async function checked(){
+    async function checked() {
         var checks = $("input:checkbox[name='tag-list']:checked");
         var errors = []
 
@@ -33,12 +33,12 @@ window.onload = function(){
             }
         }
 
-        if(errors){
+        if (errors?.length > 0) {
             alert(errors[0]);
         }
     }
 
-    $("#ul-tags").on("click", "label.list-item", async function(e){
+    $("#ul-tags").on("click", "label.list-item", async function (e) {
         // await new Promise((resolve, reject) => {test(); resolve();})
         // await test();
         console.log('click');
@@ -49,17 +49,17 @@ window.onload = function(){
             return;
         }
 
-        if (this.style.cursor==='wait') {
+        if (this.style.cursor === 'wait') {
             return;
         }
 
         let checkbox = $(this).children('input:checkbox[name="tag-list"]')[0];
-        if(checkbox.checked){
-            await new Promise(resolve => {unselectTag(this.innerText); resolve();});
+        if (checkbox.checked) {
+            await new Promise(resolve => { unselectTag(this.innerText); resolve(); });
             checkbox.checked = false;
         }
         else {
-            $("#ul-tags > *").each(function(index) {
+            $("#ul-tags > *").each(function (index) {
                 $(this).css("cursor", "wait");
             })
 
@@ -77,31 +77,31 @@ window.onload = function(){
             try {
                 await selectTag(this.innerText)
                 checkbox.checked = true;
-                $("#ul-tags > *").each(function(index) {
+                $("#ul-tags > *").each(function (index) {
                     $(this).css("cursor", "pointer");
                 })
             } catch (error) {
                 alert(error.responseJSON.error_message);
             } finally {
-                $("#ul-tags > *").each(function(index) {
+                $("#ul-tags > *").each(function (index) {
                     $(this).css("cursor", "pointer");
                 })
             }
         }
     });
 
-    async function test(){
-        await new Promise( (resolve, reject) => {setTimeout(function(){resolve(); console.log('test');}, 5000)});
+    async function test() {
+        await new Promise((resolve, reject) => { setTimeout(function () { resolve(); console.log('test'); }, 5000) });
         await new Promise(x => setTimeout(x, 1000));
-        for (let index = 0; index < 50000; index++) {console.log('5000')}
+        for (let index = 0; index < 50000; index++) { console.log('5000') }
     }
 
 
     // $("#ul-tags").on("change", "input:checkbox[name='tag-list']", async function(e){
-        // await new Promise(r => setTimeout(r, 5000));
+    // await new Promise(r => setTimeout(r, 5000));
     // });
 
-    async function selectTag(tag){
+    async function selectTag(tag) {
         // await new Promise(x => setTimeout(x, 1000));
 
         $("input").val(tag);
@@ -120,12 +120,12 @@ window.onload = function(){
         // // buttonClick();
     }
 
-    function unselectTag(tag){
-        $("#ul-selected").children().filter(function() {
+    function unselectTag(tag) {
+        $("#ul-selected").children().filter(function () {
             return $(this).text() === tag;
         }).remove();
 
-        let test = $("#ul-tags").children().filter(function(){
+        let test = $("#ul-tags").children().filter(function () {
             return $(this).text() === tag;
         }).children()[0].checked = false;
 
@@ -133,19 +133,19 @@ window.onload = function(){
         render(options);
     }
 
-    function render(options){
+    function render(options) {
         chart.options = options;
         chart.render();
     }
 
-    function refresh(options){
+    function refresh(options) {
         chart = new CanvasJS.Chart("chartContainer", options);
         render(options);
     }
 
     $("button").click(function () { buttonClick(); });
 
-    function createChart(){
+    function createChart() {
         options = {
             animatedRender: true,
             animationEnabled: true,
@@ -179,13 +179,14 @@ window.onload = function(){
         refresh(options);
     }
 
-    async function getData(tag){
+    async function getData(tag) {
+        // throw { responseJSON: { error_message: "test error" } };
         let count = 5; //increase number of dataPoints by increasing the count
         let interval = 86400000; //1 day in milli seconds
 
         let date = new Date();
-        let from = date.setHours(0,0,0,0);
-        let to = date.setDate(date.getDate()+1);
+        let from = date.setHours(0, 0, 0, 0);
+        let to = date.setDate(date.getDate() + 1);
         let chartType = $("input[type='radio'][name='chart-type']:checked")[0]?.parentElement.innerText.toLowerCase()
         chartType = chartType ? chartType : "line";
         let data = {
@@ -197,14 +198,14 @@ window.onload = function(){
 
         let dataPoints = [];
 
-        for(let i = 0; i < count; i++){
+        for (let i = 0; i < count; i++) {
             //y += Math.round(Math.random() * 10 - 5);
-            
+
             await $.ajax({
                 url: "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + from.toString().slice(0, -3)
                     + "&todate=" + to.toString().slice(0, -3) + "&order=desc&sort=activity&site=stackoverflow",
                 type: 'GET',
-                data: { tagged: tag},
+                data: { tagged: tag },
                 success: function (response) {
                     dataPoints.push({
                         x: new Date(from),
@@ -224,7 +225,7 @@ window.onload = function(){
         options.data.push(data);
         render(options);
     }
-    function toogleDataSeries(e){
+    function toogleDataSeries(e) {
         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
             e.dataSeries.visible = false;
         } else {
@@ -232,7 +233,7 @@ window.onload = function(){
         }
         e.chart.render();
     }
-    function buttonClick(){
+    function buttonClick() {
         let iteration = 1;
         let items = 0;
         let tag = $("input").val();
