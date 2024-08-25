@@ -41,7 +41,7 @@ window.onload = function () {
     $("#ul-tags").on("click", "label.list-item", async function (e) {
         // await new Promise((resolve, reject) => {test(); resolve();})
         // await test();
-        console.log('click');
+        // console.log('click');
         // return;
 
         if (e.target !== this) {
@@ -180,7 +180,7 @@ window.onload = function () {
 
     async function getData(tag) {
         // throw { responseJSON: { error_message: "test error" } };
-        let count = 5; //increase number of dataPoints by increasing the count
+        let count = 10; //increase number of dataPoints by increasing the count
         let interval = 86400000; //1 day in milli seconds
 
         let date = new Date();
