@@ -116,7 +116,7 @@ window.onload = function () {
             document.getElementById("ul-selected").appendChild(newLi);
         }
 
-        // // buttonClick();
+        // buttonClick();
     }
 
     function unselectTag(tag) {
