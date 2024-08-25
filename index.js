@@ -102,19 +102,18 @@ window.onload = function () {
     // });
 
     async function selectTag(tag) {
-        // await new Promise(x => setTimeout(x, 1000));
+        if ($("#ul-selected li").length === 5) {
+            throw { responseJSON: { error_message: "reached max selections: 5" } };
+        }
 
         $("input").val(tag);
+        if ($("#ul-selected li:contains(" + tag + ")").length == 0) {
+            await getData(tag);
 
-        if ($("#ul-selected li").length < 5) {
-            if ($("#ul-selected li:contains(" + tag + ")").length == 0) {
-                await getData(tag);
-
-                let newLi = document.createElement('li');
-                newLi.className = "list-item display-inline";
-                newLi.innerHTML = tag + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
-                document.getElementById("ul-selected").appendChild(newLi);
-            }
+            let newLi = document.createElement('li');
+            newLi.className = "list-item display-inline";
+            newLi.innerHTML = tag + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
+            document.getElementById("ul-selected").appendChild(newLi);
         }
 
         // // buttonClick();
