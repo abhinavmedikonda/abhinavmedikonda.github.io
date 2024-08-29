@@ -100,7 +100,7 @@ footer {
 #layout-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    margin-bottom: 5vh;
+    padding-bottom: 5vh;
 }
 
 #tags-panel {
@@ -135,6 +135,14 @@ footer {
     #tags-panel {
         grid-column: span 6;
         grid-row: 2 / 3;
+        background-color: transparent;
+
+        #ul-tags{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1em;
+            justify-content: space-around;
+        }
     }
 
     #chart {
@@ -143,6 +151,12 @@ footer {
 
     #blocks {
         grid-column: span 6;
+    }
+
+    #ul-tags>label:has(input:checked) {
+        transform: none;
+        border: #444 3px solid;
+        border-radius: .2em;
     }
 }
 
