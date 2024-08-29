@@ -112,7 +112,7 @@ window.onload = function () {
 
             let newLi = document.createElement('li');
             newLi.className = "list-item display-inline";
-            newLi.innerHTML = tag + '<span class="margin-left-20 glyphicon glyphicon-remove"></span>';
+            newLi.innerHTML = tag + '<span class="fa fa-times"></span>';
             document.getElementById("ul-selected").appendChild(newLi);
         }
 

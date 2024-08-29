@@ -137,7 +137,7 @@ footer {
         grid-row: 2 / 3;
         background-color: transparent;
 
-        #ul-tags{
+        #ul-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 1em;
@@ -241,10 +241,6 @@ footer {
     text-shadow: 0 0 .5rem black;
 }
 
-.margin-left-20 {
-    margin-left: 20px;
-}
-
 .display-inline {
     display: inline;
 }
@@ -280,7 +276,7 @@ footer {
     display: none;
 }
 
-#ul-selected{
+#ul-selected {
     padding: 0 5%;
     flex-wrap: wrap;
 
@@ -288,13 +284,17 @@ footer {
         padding: 10px 15px;
         margin: 2px;
         border: 1px solid #dddddd;
+
+        i {
+            margin-left: 20px;
+        }
     }
 }
 
 #ul-selected>li.list-item:hover {
     cursor: pointer;
 
-    span.glyphicon {
+    i.fa {
         color: crimson;
     }
 }
