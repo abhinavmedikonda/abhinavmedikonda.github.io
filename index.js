@@ -111,8 +111,8 @@ window.onload = function () {
             await getData(tag);
 
             let newLi = document.createElement('li');
-            newLi.className = "list-item display-inline";
-            newLi.innerHTML = tag + '<span class="fa fa-times"></span>';
+            newLi.className = "list-item";
+            newLi.innerHTML = tag + '<i class="fa fa-times"></i>';
             document.getElementById("ul-selected").appendChild(newLi);
         }
 
