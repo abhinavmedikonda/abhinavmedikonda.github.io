@@ -19,6 +19,10 @@ window.onload = function () {
         refresh(options);
     });
 
+    $("#input-tag").on("click", function () {
+        $(this).select();
+    });
+
     checked()
     async function checked() {
         var checks = $("input:checkbox[name='tag-list']:checked");
@@ -120,16 +124,16 @@ window.onload = function () {
     }
 
     function unselectTag(tag) {
+        options.data = options.data.filter(obj => obj.name != tag);
+        render(options);
+
         $("#ul-selected").children().filter(function () {
             return $(this).text() === tag;
         }).remove();
 
-        let test = $("#ul-tags").children().filter(function () {
+        $("#ul-tags").children().filter(function () {
             return $(this).text() === tag;
         }).children()[0].checked = false;
-
-        options.data = options.data.filter(obj => obj.name != tag);
-        render(options);
     }
 
     function render(options) {
@@ -142,7 +146,7 @@ window.onload = function () {
         render(options);
     }
 
-    $("button").click(function () { buttonClick(); });
+    $("#button-tag").click(function () { buttonClick(); });
 
     function createChart() {
         options = {
@@ -232,22 +236,24 @@ window.onload = function () {
         }
         e.chart.render();
     }
-    function buttonClick() {
-        let iteration = 1;
-        let items = 0;
-        let tag = $("input").val();
+    async function buttonClick() {
+        await selectTag($("#input-tag").val());
+        
+        // let iteration = 1;
+        // let items = 0;
+        // let tag = $("input").val();
 
-        let nowSeconds = Date.now().toString().slice(0, -3);
-        let x = "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 21600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow";
+        // let nowSeconds = Date.now().toString().slice(0, -3);
+        // let x = "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 21600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow";
 
-        $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 3600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
-            $("h1#1hour").text(response.items.length);
-        });
-        $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 21600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
-            $("h1#6hour").text(response.items.length);
-        });
-        $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 86400).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
-            $("h1#24hour").text(response.items.length);
-        });
+        // $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 3600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
+        //     $("h1#1hour").text(response.items.length);
+        // });
+        // $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 21600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
+        //     $("h1#6hour").text(response.items.length);
+        // });
+        // $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 86400).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
+        //     $("h1#24hour").text(response.items.length);
+        // });
     }
 };
