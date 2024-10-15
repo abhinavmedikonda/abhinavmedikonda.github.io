@@ -205,14 +205,14 @@ window.onload = function () {
             //y += Math.round(Math.random() * 10 - 5);
 
             await $.ajax({
-                url: "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + from.toString().slice(0, -3)
-                    + "&todate=" + to.toString().slice(0, -3) + "&order=desc&sort=activity&site=stackoverflow",
+                url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate="
+                    + from.toString().slice(0, -3) + "&todate=" + to.toString().slice(0, -3) + "",
                 type: 'GET',
                 data: { tagged: tag },
                 success: function (response) {
                     dataPoints.push({
                         x: new Date(from),
-                        y: response.items.length
+                        y: response.total
                     });
                 },
                 // error: function(error){
@@ -244,16 +244,15 @@ window.onload = function () {
         // let tag = $("input").val();
 
         // let nowSeconds = Date.now().toString().slice(0, -3);
-        // let x = "https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 21600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow";
 
-        // $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 3600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
-        //     $("h1#1hour").text(response.items.length);
+        // $.get("https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 25200).toString() + "&tagged=" + tag, function (response) {
+        //     $("h1#1hour").text(response.total);
         // });
-        // $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 21600).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
-        //     $("h1#6hour").text(response.items.length);
+        // $.get("https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 54000).toString() + "&tagged=" + tag, function (response) {
+        //     $("h1#6hour").text(response.total);
         // });
-        // $.get("https://api.stackexchange.com/2.2/search?page=1&pagesize=100&fromdate=" + (nowSeconds - 86400).toString() + "&order=desc&sort=activity&tagged=" + tag + "&site=stackoverflow", function (response) {
-        //     $("h1#24hour").text(response.items.length);
+        // $.get("https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 108000).toString() + "&tagged=" + tag, function (response) {
+        //     $("h1#24hour").text(response.total);
         // });
     }
 };
