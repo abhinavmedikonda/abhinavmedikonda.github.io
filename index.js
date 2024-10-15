@@ -204,6 +204,7 @@ window.onload = function () {
         for (let i = 0; i < count; i++) {
             //y += Math.round(Math.random() * 10 - 5);
 
+            // api documentation https://api.stackexchange.com/docs/search
             await $.ajax({
                 url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate="
                     + from.toString().slice(0, -3) + "&todate=" + to.toString().slice(0, -3) + "",
@@ -237,7 +238,17 @@ window.onload = function () {
         e.chart.render();
     }
     async function buttonClick() {
-        await selectTag($("#input-tag").val());
+        let tag = $("#input-tag").val()
+        let isValid = await isValidTag(tag)
+        if(!isValid){
+            alert("No such tag found")
+            return
+        }
+
+        await selectTag($("#input-tag").val())
+            .catch(x => {
+                alert(x.responseJSON.error_message)
+            });
         
         // let iteration = 1;
         // let items = 0;
@@ -254,5 +265,21 @@ window.onload = function () {
         // $.get("https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 108000).toString() + "&tagged=" + tag, function (response) {
         //     $("h1#24hour").text(response.total);
         // });
+    }
+    async function isValidTag(tag) {
+        let isValidTag
+        await $.ajax({
+            url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total",
+            type: 'GET',
+            data: { tagged: tag },
+            success: function (response) {
+                isValidTag = response?.total > 0 ? true : false;
+            },
+            // error: function(error){
+            //     console.log(error.responseJSON.error_message);
+            // },
+        })
+
+        return isValidTag;
     }
 };
