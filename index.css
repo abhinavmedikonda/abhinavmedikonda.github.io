@@ -231,20 +231,33 @@ footer {
     border-radius: .5rem;
     margin: 1rem;
     font-size: 1.5rem;
-    padding: 1rem .5rem;
     transition: all .07s ease;
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
+    /*background: rgba(0,0,0,0.4);*/
+    /* text-shadow: 0 0 .5rem black; */
+}
+
+.block-head {
+    height: 25%;
     text-align: center;
     color: white;
-    /*background: rgba(0,0,0,0.4);*/
-    text-shadow: 0 0 .5rem black;
+    background-color: #444;
+}
+
+.block-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75%;
+    padding: 1rem .5rem;
+    font-size: 3rem;
+    color: indianred;
 }
 
 .display-inline {
     display: inline;
 }
-
 
 
 #ul-tags>label.list-item {
@@ -301,7 +314,7 @@ footer {
 
 #input-tag {
     width: 100%;
-    height: 3rem;
+    height: 2.5rem;
     color: #555;
     border: 1px solid #ccc;
     text-align: center;
@@ -312,7 +325,7 @@ footer {
 
 #button-tag {
     width: 100%;
-    height: 3rem;
+    height: 2.5rem;
     color: #fff;
     background-color: #428bca;
     border-color: #357ebd;

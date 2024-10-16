@@ -30,7 +30,10 @@ window.onload = function () {
 
         for (var i = 0; i < checks.length; i++) {
             try {
-                await selectTag(checks[i].parentElement.innerText);
+                await selectTag(
+                    checks[i].parentElement.innerText,
+                    i == checks.length-1 ? true : false
+                )
             } catch (error) {
                 checks[i].checked = false;
                 errors.push(error.responseJSON.error_message);
@@ -79,7 +82,7 @@ window.onload = function () {
 
             // async await approach
             try {
-                await selectTag(this.innerText)
+                await selectTag(this.innerText, true)
                 checkbox.checked = true;
                 $("#ul-tags > *").each(function (index) {
                     $(this).css("cursor", "pointer");
@@ -105,7 +108,7 @@ window.onload = function () {
     // await new Promise(r => setTimeout(r, 5000));
     // });
 
-    async function selectTag(tag) {
+    async function selectTag(tag, isUpdateBlocks) {
         if ($("#ul-selected li").length === 5) {
             throw { responseJSON: { error_message: "reached max selections: 5" } };
         }
@@ -120,7 +123,9 @@ window.onload = function () {
             document.getElementById("ul-selected").appendChild(newLi);
         }
 
-        // buttonClick();
+        if(isUpdateBlocks){
+            updateBlocks(tag)
+        }
     }
 
     function unselectTag(tag) {
@@ -184,7 +189,7 @@ window.onload = function () {
 
     async function getData(tag) {
         // throw { responseJSON: { error_message: "test error" } };
-        let count = 10; //increase number of dataPoints by increasing the count
+        let count = 1; //increase number of dataPoints by increasing the count
         let interval = 86400000; //1 day in milli seconds
 
         let date = new Date();
@@ -240,31 +245,15 @@ window.onload = function () {
     async function buttonClick() {
         let tag = $("#input-tag").val()
         let isValid = await isValidTag(tag)
-        if(!isValid){
+        if (!isValid) {
             alert("No such tag found")
             return
         }
 
-        await selectTag($("#input-tag").val())
+        await selectTag($("#input-tag").val(), true)
             .catch(x => {
                 alert(x.responseJSON.error_message)
             });
-        
-        // let iteration = 1;
-        // let items = 0;
-        // let tag = $("input").val();
-
-        // let nowSeconds = Date.now().toString().slice(0, -3);
-
-        // $.get("https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 25200).toString() + "&tagged=" + tag, function (response) {
-        //     $("h1#1hour").text(response.total);
-        // });
-        // $.get("https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 54000).toString() + "&tagged=" + tag, function (response) {
-        //     $("h1#6hour").text(response.total);
-        // });
-        // $.get("https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 108000).toString() + "&tagged=" + tag, function (response) {
-        //     $("h1#24hour").text(response.total);
-        // });
     }
     async function isValidTag(tag) {
         let isValidTag
@@ -281,5 +270,27 @@ window.onload = function () {
         })
 
         return isValidTag;
+    }
+    function updateBlocks(tag) {
+        let nowSeconds = Date.now().toString().slice(0, -3);
+
+        $.get({url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 604800).toString(),
+            data: { tagged: tag },
+            success: function (response) {
+                $("#count-block1").text(response.total);
+            }
+        })
+        $.get({url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 1296000).toString(),
+            data: { tagged: tag },
+            success: function (response) {
+                $("#count-block2").text(response.total);
+            }
+        })
+        $.get({url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 2592000).toString(),
+            data: { tagged: tag },
+            success: function (response) {
+                $("#count-block3").text(response.total);
+            }
+        })
     }
 };
