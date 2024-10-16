@@ -189,7 +189,7 @@ window.onload = function () {
 
     async function getData(tag) {
         // throw { responseJSON: { error_message: "test error" } };
-        let count = 1; //increase number of dataPoints by increasing the count
+        let count = 10; //increase number of dataPoints by increasing the count
         let interval = 86400000; //1 day in milli seconds
 
         let date = new Date();
