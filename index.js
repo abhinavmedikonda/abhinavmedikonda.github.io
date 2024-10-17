@@ -217,7 +217,7 @@ window.onload = function () {
                 data: { tagged: tag },
                 success: function (response) {
                     dataPoints.push({
-                        x: new Date(from),
+                        x: new Date(from/* + Math.floor(Math.random()*interval)*/),
                         y: response.total
                     });
                 },
