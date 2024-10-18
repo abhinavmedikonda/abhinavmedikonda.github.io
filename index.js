@@ -108,14 +108,14 @@ window.onload = function () {
     // await new Promise(r => setTimeout(r, 5000));
     // });
 
-    async function selectTag(tag, isUpdateBlocks) {
+    async function selectTag(tag, isLastTag) {
         if ($("#ul-selected li").length === 5) {
             throw { responseJSON: { error_message: "reached max selections: 5" } };
         }
 
         $("input").val(tag);
         if ($("#ul-selected li:contains(" + tag + ")").length == 0) {
-            await getData(tag);
+            await getData(tag, isLastTag);
 
             let newLi = document.createElement('li');
             newLi.className = "list-item";
@@ -123,7 +123,7 @@ window.onload = function () {
             document.getElementById("ul-selected").appendChild(newLi);
         }
 
-        if(isUpdateBlocks){
+        if(isLastTag){
             updateBlocks(tag)
         }
     }
@@ -187,7 +187,7 @@ window.onload = function () {
         refresh(options);
     }
 
-    async function getData(tag) {
+    async function getData(tag, isRender) {
         // throw { responseJSON: { error_message: "test error" } };
         let count = 10; //increase number of dataPoints by increasing the count
         let interval = 86400000; //1 day in milli seconds
@@ -232,7 +232,9 @@ window.onload = function () {
         }
         data.dataPoints = dataPoints;
         options.data.push(data);
-        render(options);
+        if(isRender){
+            render(options)
+        }
     }
     function toogleDataSeries(e) {
         if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
