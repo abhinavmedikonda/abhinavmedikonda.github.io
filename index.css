@@ -55,6 +55,10 @@ header {
             user-select: none;
             cursor: pointer;
         }
+
+        >label:hover {
+            color: white;
+        }
     }
 
     #ul-navbar>label:has(input:checked) {
