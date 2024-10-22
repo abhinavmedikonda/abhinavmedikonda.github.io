@@ -278,12 +278,17 @@ footer {
     font-size: 1.2rem;
 }
 
-#ul-tags>label.list-item:hover {
+#ul-tags>label.list-item:has(input:checked):hover {
+    font-weight: lighter;
+    cursor: pointer;
+}
+
+#ul-tags>label.list-item:has(:not(input:checked)):hover {
     font-weight: bold;
     cursor: pointer;
 }
 
-#ul-tags>label:has(input:checked) {
+#ul-tags>label.list-item:has(input:checked) {
     transform: scale(1.06, 1);
     transform-origin: left;
 }
