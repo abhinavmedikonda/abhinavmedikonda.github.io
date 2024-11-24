@@ -32,7 +32,7 @@ window.onload = function () {
             try {
                 await selectTag(
                     checks[i].parentElement.innerText,
-                    i == checks.length-1 ? true : false
+                    i == checks.length - 1 ? true : false
                 )
             } catch (error) {
                 checks[i].checked = false;
@@ -123,7 +123,7 @@ window.onload = function () {
             document.getElementById("ul-selected").appendChild(newLi);
         }
 
-        if(isLastTag){
+        if (isLastTag) {
             updateBlocks(tag)
         }
     }
@@ -232,7 +232,7 @@ window.onload = function () {
         }
         data.dataPoints = dataPoints;
         options.data.push(data);
-        if(isRender){
+        if (isRender) {
             render(options)
         }
     }
@@ -276,23 +276,60 @@ window.onload = function () {
     function updateBlocks(tag) {
         let nowSeconds = Date.now().toString().slice(0, -3);
 
-        $.get({url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 604800).toString(),
+        $.get({
+            url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 604800).toString(),
             data: { tagged: tag },
             success: function (response) {
                 $("#count-block1").text(response.total);
             }
         })
-        $.get({url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 1296000).toString(),
+        $.get({
+            url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 1296000).toString(),
             data: { tagged: tag },
             success: function (response) {
                 $("#count-block2").text(response.total);
             }
         })
-        $.get({url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 2592000).toString(),
+        $.get({
+            url: "https://api.stackexchange.com/2.3/search?site=stackoverflow&filter=total&fromdate=" + (nowSeconds - 2592000).toString(),
             data: { tagged: tag },
             success: function (response) {
                 $("#count-block3").text(response.total);
             }
         })
     }
+
+    function alert(text) {
+        const toast = document.querySelector(".toast");
+        (closeIcon = document.querySelector(".close")),
+        (progress = document.querySelector(".progress"));
+
+        $("#span-alert").text(text);
+
+        let timer1, timer2;
+        toast.classList.add("active");
+        progress.classList.add("active");
+
+        timer1 = setTimeout(() => {
+            toast.classList.remove("active");
+        }, 5000); //1s = 1000 milliseconds
+
+        timer2 = setTimeout(() => {
+            progress.classList.remove("active");
+        }, 5300);
+
+        closeIcon.addEventListener("click", () => {
+            toast.classList.remove("active");
+            setTimeout(() => {
+                progress.classList.remove("active");
+            }, 300);
+
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        });
+    }
+
+    // $(".toast").on("click", function () {
+    //     this.classList.remove("active")
+    // });
 };
