@@ -36,7 +36,7 @@ window.onload = function () {
                 )
             } catch (error) {
                 checks[i].checked = false;
-                errors.push(error.responseJSON.error_message);
+                errors.push(error?.responseJSON?.error_message ? error.responseJSON.error_message : "unknown error");
             }
         }
 
@@ -88,7 +88,7 @@ window.onload = function () {
                     $(this).css("cursor", "pointer");
                 })
             } catch (error) {
-                alert(error.responseJSON.error_message);
+                alert(error?.responseJSON?.error_message ? error.responseJSON.error_message : "unknown error");
             } finally {
                 $("#ul-tags > *").each(function (index) {
                     $(this).css("cursor", "pointer");
