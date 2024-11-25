@@ -356,7 +356,7 @@ footer {
 .toast {
   position: fixed;
   z-index: 100;
-  top: -10vh;
+  top: -15vh;
   left: 0;
   right: 0;
   margin-inline: auto;
@@ -379,7 +379,7 @@ footer {
 } */
 
 .toast.active {
-  transform: translateY(20vh);
+  transform: translateY(25vh);
 }
 
 .toast .toast-content {
